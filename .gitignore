@@ -1,0 +1,10 @@
+**/target/
+.idea
+*.iml
+*.class
+*Test.java
+**/test/
+
+# 只忽略 dev 环境的配置（你配置密钥的那个文件）
+**/application-dev.yml
+**/application-dev.yaml
