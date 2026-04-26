@@ -21,7 +21,6 @@ public class AliOssUtil {
 
     /**
      * 文件上传
-     *
      * @param bytes
      * @param objectName
      * @return
@@ -52,17 +51,27 @@ public class AliOssUtil {
             }
         }
 
-        //文件访问路径规则 https://BucketName.Endpoint/ObjectName
-        StringBuilder stringBuilder = new StringBuilder("https://");
-        stringBuilder
-                .append(bucketName)
-                .append(".")
-                .append(endpoint)
-                .append("/")
-                .append(objectName);
+        /**
+         * ----------260426 因为文件上传图片出现空白, 修改掉这里----------
+         */
+//        //文件访问路径规则 https://BucketName.Endpoint/ObjectName
+//        StringBuilder stringBuilder = new StringBuilder("https://");
+//        stringBuilder
+//                .append(bucketName)
+//                .append(".")
+//                .append(endpoint)
+//                .append("/")
+//                .append(objectName);
+//
+//        log.info("文件上传到:{}", stringBuilder.toString());
+//
+//        return stringBuilder.toString();
 
-        log.info("文件上传到:{}", stringBuilder.toString());
+        // ✅ 修正：从 endpoint 中提取域名部分（去掉 https://）
+        String domain = endpoint.replace("https://", "").replace("http://", "");
+        String url = "https://" + bucketName + "." + domain + "/" + objectName;
 
-        return stringBuilder.toString();
+        log.info("文件上传到: {}", url);
+        return url;
     }
 }
