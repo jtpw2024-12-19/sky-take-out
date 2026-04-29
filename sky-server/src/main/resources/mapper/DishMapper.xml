@@ -25,7 +25,7 @@
         order by d.create_time desc
     </select>
 
-<!--    260427删除菜品-->
+    <!--    260427删除菜品-->
     <delete id="deleteByIds">
         delete from dish where id in
                          <foreach collection="ids" item="id" open="(" separator="," close=")">
@@ -64,4 +64,17 @@
         where id = #{id}
     </update>
 
+    <!-- 260429 day04 套餐功能-->
+    <select id="list" resultType="Dish" parameterType="Dish">
+        select * from dish
+        <where>
+            <if test="categoryId != null">
+                and category_id = #{categoryId}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+        </where>
+        order by create_time desc
+    </select>
 </mapper>
